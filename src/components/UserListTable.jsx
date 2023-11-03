@@ -1,10 +1,18 @@
 import UserListItem from "./UserListItem";
+import * as userService from "../services/userService";
+import { useEffect, useState } from "react";
 
 const UserListTable = (props) => {
+  const [users, setUsers] = useState([]);
+
+  console.log(users);
+
+  useEffect(() => {
+    userService.getAll().then((result) => setUsers(result));
+  }, []);
+
   return (
     <div className="table-wrapper">
-    
-
       <table className="table">
         <thead>
           <tr>
@@ -65,7 +73,7 @@ const UserListTable = (props) => {
             </th>
             <th>
               Phone
-              <svg              
+              <svg
                 aria-hidden="true"
                 focusable="false"
                 data-prefix="fas"
@@ -88,7 +96,7 @@ const UserListTable = (props) => {
                 focusable="false"
                 data-prefix="fas"
                 data-icon="arrow-down"
-                class="icon active-icon svg-inline--fa fa-arrow-down Table_icon__+HHgn"
+                className="icon active-icon svg-inline--fa fa-arrow-down Table_icon__+HHgn"
                 role="img"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 384 512"
@@ -103,7 +111,17 @@ const UserListTable = (props) => {
           </tr>
         </thead>
         <tbody>
-          <UserListItem />
+          {users.map((user) => (
+            <UserListItem 
+                key={user._id}
+                createdAt={user.createdAt}
+                firstName={user.firstName}
+                lastName={user.lastName}
+                imageUrl={user.imageUrl}
+                email={user.email}
+                phoneNumber={user.phoneNumber}
+            />
+          ))}
         </tbody>
       </table>
     </div>
