@@ -5,13 +5,21 @@ import UserList from "./components/UserList";
 
 function App() {
   return (
-    <div>
+    <section className="card users-container">
+
       <Header />
+
       <main className="main">
+
         <UserList />
+
+        <button className="btn-add btn">Add new user</button>
+
       </main>
+
       <Footer />
-    </div>
+      
+    </section>
   );
 }
 
