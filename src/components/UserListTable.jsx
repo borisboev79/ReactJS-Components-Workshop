@@ -2,32 +2,67 @@ import UserListItem from "./UserListItem";
 import * as userService from "../services/userService";
 import { useEffect, useState } from "react";
 import CreateUserModal from "./AddUserModal";
+import UserInfoModal from "./UserInfoModal";
 
 const UserListTable = (props) => {
   const [users, setUsers] = useState([]);
   const [showAdd, setShowAdd] = useState(false);
+  const [showInfo, setShowInfo] = useState(false);
 
   console.log(users);
 
   useEffect(() => {
-    userService.getAll().then((result) => setUsers(result));
+    userService
+      .getAll()
+      .then((result) => setUsers(result))
+      .catch((error) => console.log(err));
   }, []);
 
   const addUserClickHandler = () => {
     setShowAdd(true);
-  }
+  };
 
   const closeAddUserClickHandler = () => {
     setShowAdd(false);
+  };
+
+  const userCreateHandler = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.currentTarget);
+
+    const data = Object.fromEntries(formData);
+
+    const newUser = await userService.add(data);
+
+    setUsers(state => [...state, newUser]);
+
+    setShowAdd(false);
+  };
+
+  const showInfoClickHandler = () => {
+    setShowInfo(true);
   }
 
+  const closeUserInfoClickHandler = () => {
+    setShowInfo(false);
+  };
+
   return (
-
-  
-
     <div className="table-wrapper">
+      {showAdd && (
+        <CreateUserModal
+          closeModal={closeAddUserClickHandler}
+          onUserAdd={userCreateHandler}
+        />
+      )}
+
+      {showInfo && (<UserInfoModal
+            
+            closeInfo={closeUserInfoClickHandler}
+        />)}
+
       <table className="table">
-          {showAdd && <CreateUserModal closeModal={closeAddUserClickHandler} />}
         <thead>
           <tr>
             <th>Image</th>
@@ -126,22 +161,22 @@ const UserListTable = (props) => {
         </thead>
         <tbody>
           {users.map((user) => (
-            <UserListItem 
-                key={user._id}
-                createdAt={user.createdAt}
-                firstName={user.firstName}
-                lastName={user.lastName}
-                imageUrl={user.imageUrl}
-                email={user.email}
-                phoneNumber={user.phoneNumber}
+            <UserListItem
+              key={user._id}
+              createdAt={user.createdAt}
+              firstName={user.firstName}
+              lastName={user.lastName}
+              imageUrl={user.imageUrl}
+              email={user.email}
+              phoneNumber={user.phoneNumber}
+              showInfo={showInfoClickHandler}
             />
           ))}
         </tbody>
       </table>
-      <button className="btn-add btn" onClick={addUserClickHandler}>Add new user</button>
-
-    
-
+      <button className="btn-add btn" onClick={addUserClickHandler}>
+        Add new user
+      </button>
     </div>
   );
 };

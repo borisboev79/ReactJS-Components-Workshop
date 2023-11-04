@@ -6,7 +6,8 @@ const UserListItem = ({
   email,
   phoneNumber,
   createdAt,
-  imageUrl
+  imageUrl,
+  showInfo,
 }) => {
     return(
         <tr>
@@ -58,7 +59,7 @@ const UserListItem = ({
                   ></path>
                 </svg>
               </button>
-              <button className="btn info-btn" title="Info">
+              <button className="btn info-btn" title="Info" onClick={showInfo}>
                 <svg
                   aria-hidden="true"
                   focusable="false"
