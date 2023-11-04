@@ -1,9 +1,14 @@
+
+// import {userId} from UserListItem;
+
 const UserInfoModal = ({
     closeInfo,
    
 }) => {
 
-    
+    // console.log(userId);
+
+
 
 
   return (

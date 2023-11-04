@@ -1,6 +1,7 @@
 import { formatDate } from "../utils/dateUtils";
 
 const UserListItem = ({
+  userId,
   firstName,
   lastName,
   email,
@@ -9,6 +10,11 @@ const UserListItem = ({
   imageUrl,
   showInfo,
 }) => {
+
+    const infoClickHandler = () => {
+      showInfo(userId);
+    }
+
     return(
         <tr>
             <td>
@@ -59,7 +65,7 @@ const UserListItem = ({
                   ></path>
                 </svg>
               </button>
-              <button className="btn info-btn" title="Info" onClick={showInfo}>
+              <button className="btn info-btn" title="Info" onClick={infoClickHandler}>
                 <svg
                   aria-hidden="true"
                   focusable="false"

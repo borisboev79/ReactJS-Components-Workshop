@@ -44,3 +44,10 @@ export const add = async (data) => {
     return result;
    
 };
+
+export const getOne = async (userId) => {
+    const response = await fetch(`${baseUrl}/${userId}`);
+    const result = await response.json();
+
+    return result;
+}

@@ -9,8 +9,6 @@ const UserListTable = (props) => {
   const [showAdd, setShowAdd] = useState(false);
   const [showInfo, setShowInfo] = useState(false);
 
-  console.log(users);
-
   useEffect(() => {
     userService
       .getAll()
@@ -35,14 +33,17 @@ const UserListTable = (props) => {
 
     const newUser = await userService.add(data);
 
-    setUsers(state => [...state, newUser]);
+    setUsers((state) => [...state, newUser]);
 
     setShowAdd(false);
   };
 
-  const showInfoClickHandler = () => {
+  const showInfoClickHandler = async (userId) => {
+    const userDetails = await userService.getOne(userId);
     setShowInfo(true);
-  }
+
+    console.log(userDetails);
+  };
 
   const closeUserInfoClickHandler = () => {
     setShowInfo(false);
@@ -57,10 +58,7 @@ const UserListTable = (props) => {
         />
       )}
 
-      {showInfo && (<UserInfoModal
-            
-            closeInfo={closeUserInfoClickHandler}
-        />)}
+      {showInfo && <UserInfoModal closeInfo={closeUserInfoClickHandler} />}
 
       <table className="table">
         <thead>
@@ -163,6 +161,7 @@ const UserListTable = (props) => {
           {users.map((user) => (
             <UserListItem
               key={user._id}
+              userId={user._id}
               createdAt={user.createdAt}
               firstName={user.firstName}
               lastName={user.lastName}
