@@ -10,6 +10,7 @@ const UserListItem = ({
   imageUrl,
   showInfo,
   showDelete,
+  showEdit,
 }) => {
 
     const infoClickHandler = () => {
@@ -18,6 +19,11 @@ const UserListItem = ({
 
     const showDeleteHandler = () => {
       showDelete(userId);
+    }
+
+    const showEditHandler = () => {
+      showEdit(userId);
+      console.log(userId);
     }
 
     return(
@@ -29,14 +35,14 @@ const UserListItem = ({
                 className="image"
               />
             </td>
-            <td>{firstName}</td>
+            <td>{firstName}</td>s
             <td>{lastName}</td>
             <td>{email}</td>
             <td>{phoneNumber}</td>
             <td>{formatDate(createdAt)}</td>
 
             <td className="actions">
-              <button className="btn edit-btn" title="Edit">
+              <button className="btn edit-btn" title="Edit" onClick={showEditHandler}>
                 <svg
                   aria-hidden="true"
                   focusable="false"

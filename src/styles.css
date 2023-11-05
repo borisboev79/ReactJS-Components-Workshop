@@ -417,7 +417,7 @@ ul {
 }
 
 .search-form .icon {
-  color: white;
+  fill: white;
   position: relative;
 }
 
@@ -816,7 +816,8 @@ ul {
   color: #555;
   text-align: center;
   background-color: #f7f7f7;
-  border: 1px solid #d5dee6;
+  border: 1px solid green;
+  border-right: 1px solid #d5dee6;
   border-top-left-radius: 4px;
   border-bottom-left-radius: 4px;
 }
@@ -835,7 +836,7 @@ ul {
   width: 100%;
   font-weight: 400;
   line-height: 1.5;
-  border: 1px solid #d5dee6;
+  border: 1px solid green;
   border-left: none;
   outline: none;
   height: 50px;

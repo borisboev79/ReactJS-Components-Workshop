@@ -9,6 +9,7 @@ const UserListTable = (props) => {
   const [users, setUsers] = useState([]);
   const [showAdd, setShowAdd] = useState(false);
   const [showInfo, setShowInfo] = useState(false);
+  const [showEdit, setShowEdit] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
 
@@ -50,6 +51,31 @@ const UserListTable = (props) => {
     setShowInfo(false);
   };
 
+  const showEditUserClickHandler = (userId) => {
+    setSelectedUser(userId);
+    setShowEdit(true);
+  };
+
+  const userEditHandler = async (e) => {
+    e.preventDefault();
+
+    const user = userService.getOne(selectedUser);
+
+    const formData = new FormData(user);
+
+    const data = Object.fromEntries(formData);
+
+    const newUser = await userService.edit(data);
+
+ //   setUsers((state) => [...state, newUser]);
+
+    setShowAdd(false);
+  };
+
+  const closeUserEditClickHandler = () => {
+    setShowEdit(false);
+  };
+
   const showDeleteUserInfoClickHandler = (userId) => {
     setSelectedUser(userId);
     setShowDelete(true);
@@ -73,6 +99,7 @@ const UserListTable = (props) => {
         <CreateUserModal
           closeModal={closeAddUserClickHandler}
           onUserAdd={userCreateHandler}
+          command="add"
         />
       )}
 
@@ -80,6 +107,14 @@ const UserListTable = (props) => {
         <UserInfoModal
           closeInfo={closeUserInfoClickHandler}
           userId={selectedUser}
+        />
+      )}
+
+      {showEdit && (
+        <CreateUserModal
+          closeEdit={closeUserEditClickHandler}
+          onUserEdit={userEditHandler}
+          command="edit"
         />
       )}
 
@@ -201,6 +236,7 @@ const UserListTable = (props) => {
               phoneNumber={user.phoneNumber}
               showInfo={showInfoClickHandler}
               showDelete={showDeleteUserInfoClickHandler}
+              showEdit={showEditUserClickHandler}
             />
           ))}
         </tbody>
