@@ -9,6 +9,7 @@ const UserListItem = ({
   createdAt,
   imageUrl,
   showInfo,
+  showDelete,
 }) => {
 
     const infoClickHandler = () => {
@@ -48,7 +49,7 @@ const UserListItem = ({
                   ></path>
                 </svg>
               </button>
-              <button className="btn delete-btn" title="Delete">
+              <button className="btn delete-btn" title="Delete" onClick={showDelete}>
                 <svg
                   aria-hidden="true"
                   focusable="false"

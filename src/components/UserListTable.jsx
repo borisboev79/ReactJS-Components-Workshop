@@ -3,11 +3,13 @@ import * as userService from "../services/userService";
 import { useEffect, useState } from "react";
 import CreateUserModal from "./AddUserModal";
 import UserInfoModal from "./UserInfoModal";
+import DeleteUserModal from "./DeleteUserMOdal";
 
 const UserListTable = (props) => {
   const [users, setUsers] = useState([]);
   const [showAdd, setShowAdd] = useState(false);
   const [showInfo, setShowInfo] = useState(false);
+  const [showDelete, setShowDelete] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
 
   useEffect(() => {
@@ -48,6 +50,14 @@ const UserListTable = (props) => {
     setShowInfo(false);
   };
 
+  const showDeleteUserInfoClickHandler = () => {
+    setShowDelete(true);
+  }
+
+  const closeDeleteUserClickHandler = () => {
+    setShowDelete(false);
+  }
+
   return (
     <div className="table-wrapper">
       {showAdd && (
@@ -60,6 +70,13 @@ const UserListTable = (props) => {
       {showInfo && (
         <UserInfoModal
           closeInfo={closeUserInfoClickHandler}
+          userId={selectedUser}
+        />
+      )}
+
+      {showDelete && (
+        <DeleteUserModal
+          closeDelete={closeDeleteUserClickHandler}
           userId={selectedUser}
         />
       )}
@@ -173,6 +190,7 @@ const UserListTable = (props) => {
               email={user.email}
               phoneNumber={user.phoneNumber}
               showInfo={showInfoClickHandler}
+              showDelete={showDeleteUserInfoClickHandler}
             />
           ))}
         </tbody>
