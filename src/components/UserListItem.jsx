@@ -16,6 +16,10 @@ const UserListItem = ({
       showInfo(userId);
     }
 
+    const showDeleteHandler = () => {
+      showDelete(userId);
+    }
+
     return(
         <tr>
             <td>
@@ -49,7 +53,7 @@ const UserListItem = ({
                   ></path>
                 </svg>
               </button>
-              <button className="btn delete-btn" title="Delete" onClick={showDelete}>
+              <button className="btn delete-btn" title="Delete" onClick={showDeleteHandler}>
                 <svg
                   aria-hidden="true"
                   focusable="false"

@@ -50,13 +50,22 @@ const UserListTable = (props) => {
     setShowInfo(false);
   };
 
-  const showDeleteUserInfoClickHandler = () => {
+  const showDeleteUserInfoClickHandler = (userId) => {
+    setSelectedUser(userId);
     setShowDelete(true);
-  }
+  };
 
   const closeDeleteUserClickHandler = () => {
     setShowDelete(false);
-  }
+  };
+
+  const userDeleteHandler = async (userId) => {
+    userService.deleteOne(userId);
+
+    setUsers((state) => state.filter((u) => u._id !== userId));
+
+    setShowDelete(false);
+  };
 
   return (
     <div className="table-wrapper">
@@ -77,6 +86,7 @@ const UserListTable = (props) => {
       {showDelete && (
         <DeleteUserModal
           closeDelete={closeDeleteUserClickHandler}
+          onDelete={userDeleteHandler}
           userId={selectedUser}
         />
       )}

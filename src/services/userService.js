@@ -28,8 +28,6 @@ export const add = async (data) => {
         }
     };
 
-    console.log(body);
-
     const response = await fetch(baseUrl, {
         method: 'POST',
         headers: {
@@ -50,4 +48,12 @@ export const getOne = async (userId) => {
     const result = await response.json();
 
     return result;
+}
+
+
+export const deleteOne = async (userId) => {
+    const response = await fetch(`${baseUrl}/${userId}`, {
+        method: 'DELETE',
+
+    });
 }

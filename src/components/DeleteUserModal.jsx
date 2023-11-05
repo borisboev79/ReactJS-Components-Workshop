@@ -1,7 +1,14 @@
 const DeleteUserModal = ({
   closeDelete,
   userId,
+  onDelete,
 }) => {
+
+  const deleteClickHandler = () => {
+    onDelete(userId);
+    console.log(userId);
+  }
+
   return (
     <div className="overlay">
       <div className="backdrop" onClick={closeDelete}></div>
@@ -29,7 +36,7 @@ const DeleteUserModal = ({
           </header>
           <div className="actions">
             <div id="form-actions">
-              <button id="action-save" className="btn" type="submit">
+              <button id="action-save" className="btn" type="submit" onClick={deleteClickHandler}>
                 Delete
               </button>
               <button id="action-cancel" className="btn" type="button" onClick={closeDelete}>
