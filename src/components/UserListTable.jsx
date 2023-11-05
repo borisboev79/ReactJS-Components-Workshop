@@ -8,6 +8,7 @@ const UserListTable = (props) => {
   const [users, setUsers] = useState([]);
   const [showAdd, setShowAdd] = useState(false);
   const [showInfo, setShowInfo] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
 
   useEffect(() => {
     userService
@@ -39,10 +40,8 @@ const UserListTable = (props) => {
   };
 
   const showInfoClickHandler = async (userId) => {
-    const userDetails = await userService.getOne(userId);
+    setSelectedUser(userId);
     setShowInfo(true);
-
-    console.log(userDetails);
   };
 
   const closeUserInfoClickHandler = () => {
@@ -58,7 +57,12 @@ const UserListTable = (props) => {
         />
       )}
 
-      {showInfo && <UserInfoModal closeInfo={closeUserInfoClickHandler} />}
+      {showInfo && (
+        <UserInfoModal
+          closeInfo={closeUserInfoClickHandler}
+          userId={selectedUser}
+        />
+      )}
 
       <table className="table">
         <thead>
